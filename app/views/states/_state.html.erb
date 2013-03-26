@@ -1,0 +1,47 @@
+<div class="span5">
+ 
+  <div class="stateheader">  
+	 <h3>
+	     <span style="font-size:14px;"><%= state.name %></span> 
+	    <% if state == @states.first %>
+	      <span id="new-story-button">
+	        <%= link_to '+', '#' %>
+	      </span>
+	    <% end %>
+	 </h3>                     
+ </div>
+  
+
+  <p class="state-limit">
+    <% if state == @states.first %>
+      Next 5 stories
+    <% elsif state == @states.last %>
+      Last 5 stories
+    <% else %>
+      <% if state.cards.size > state.capacity %>
+        <span class="alert">Only <%= state.capacity %> cards allowed!</span>
+      <% else %>
+        <%= state.capacity %> cards allowed
+      <% end %>
+    <% end %>
+  </p>
+
+  <%= content_tag_for :ul, state do %>
+
+    <% if state == @states.first %>
+      <div id="new-story" class="card">
+        <%= form_for @new_card do |f| %>
+          <%= f.text_field :name %>
+          <%= f.submit :class => 'hidden' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="drop-zone"></div>
+
+    <% state.cards.normal.each do |card| %>
+      <%= render 'stacks/stack', :card => card %>
+    <% end %>
+
+  <% end %>
+</div>

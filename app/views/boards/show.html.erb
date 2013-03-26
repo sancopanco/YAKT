@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<div  class="row" style = "width:2000px" >
+  <%= render 'inactive_users' %>
+
+  <% @states.each do |state| %>
+    <%= render state %>
+  <% end %>
+</div>

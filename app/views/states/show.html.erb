@@ -1,0 +1,19 @@
+<h3><%= @state.name %></h3>
+
+<h4>Active stories</h4>
+<ul>
+  <% @active_stories.each do |story| %>
+    <li>
+      <%= link_to story.name, story %>
+    </li>
+  <% end %>
+</ul>
+
+<h4>Inactive stories</h4>
+<ul>
+  <% @inactive_stories.each do |story| %>
+    <li>
+      <%= link_to story.name, story %>
+    </li>
+  <% end %>
+</ul>

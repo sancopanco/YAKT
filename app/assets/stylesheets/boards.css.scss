@@ -1,0 +1,78 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+h3 {
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: normal;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px #FFFFFF;
+}
+
+a, a:hover {
+  color: #1385BE;
+}
+
+#new-story {
+  display: none;
+  margin-bottom: 30px;
+}
+
+
+#new-story .hidden {
+  display: none;
+}
+
+.board {
+  position:relative;
+  float:left; 	  
+  height: 80px;
+  width: 140px;
+  border: 1px;
+  padding: 10px;
+  margin: 10px 10px 10px 10px; 
+  background-color: #E5E5E5;
+  background-repeat: repeat;
+  border-radius: 1px 1px 1px 1px;
+  border-style: solid;
+  border-width: 2px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 0px 1px #CCC;
+     -moz-box-shadow: 0px 0px 1px #CCC;
+          box-shadow: 0px 0px 1px #CCC;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+.newtab-title {
+    background-color: rgba(248, 249, 251, 0.95);
+    color: #1F364C;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 0 8px;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	width:100%;
+}
+.newtab-link, .newtab-thumbnail {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+
+
+
+
+
+
+
