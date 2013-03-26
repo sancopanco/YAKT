@@ -1,7 +1,7 @@
 class Board < ActiveRecord::Base
   attr_accessible  :description, :name
   
-  has_many :board_states
+  #has_many :board_states
   has_many :states #,:through => :board_states
   has_many :cards
   has_many :memberships

@@ -9,9 +9,9 @@ $(function(){
   };
 
   $('#new-story-button').click(function(){
-	kanban_app.modalLoad('/open_new_card_modal','');  
-    //$('#new-story').toggle();
-    //$('#story_name').focus();
+	//kanban_app.modalLoad('/open_new_card_modal','');  
+    $('#new-story').toggle();
+    $('#story_name').focus();
     switch_new_story_button_text();
   });
 
