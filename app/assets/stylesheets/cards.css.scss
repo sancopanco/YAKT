@@ -1,0 +1,79 @@
+// Place all the styles related to the Stories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#header {
+  margin-bottom: 32px;
+}
+
+#header h3 {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+h4 {
+  margin-bottom: 16px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.block {
+  background-color: white;
+  padding: 16px 24px;
+  border: 1px solid #CCCCCC;
+  -webkit-box-shadow: 0px 0px 1px #CCC;
+     -moz-box-shadow: 0px 0px 1px #CCC;
+          box-shadow: 0px 0px 1px #CCC;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+#images a {
+  float: left;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+
+#images a.last {
+  margin-right: 0;
+}
+
+#images img {
+  max-width: 184px;
+  max-height: 184px;
+  border: 1px solid #CCCCCC;
+  padding: 2px;
+  background-image: url(/images/paper_2.png);
+  background-repeat: repeat;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 0px 1px #CCC;
+     -moz-box-shadow: 0px 0px 1px #CCC;
+          box-shadow: 0px 0px 1px #CCC;
+}
+
+#copy p {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+#copy p.last {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: transparent;
+}
+
+.comment {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #3B3B3B;
+}
+
+.comment.last {
+  border-bottom: none;
+}

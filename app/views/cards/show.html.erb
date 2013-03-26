@@ -1,0 +1,66 @@
+<div id="header">
+  <h3><%= @card.name %></h3>
+
+  <p><%= @card.description %></p>
+
+  <p>
+    Requested by 
+	<% image_path avatar_url(@card.requested_user) %>
+    <%= time_ago_in_words(@card.created_at) %> ago |
+    <%= link_to "Edit", edit_card_path(@card) %>
+  </p>
+
+  <div class="users clearfix story-page">
+    <% @card.users.each do |user| %>
+      <%= image_tag user.photo, :class => 'user photo', :id => "user_#{user.id}" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+	
+  <div class="span-one-third">
+    <div id="tasks" class="block">
+      <h4>Tasks</h4>
+      <ul id="card_tasks">
+        <% @card.tasks.each do |task| %>
+			<%is_task_done = task.done == 1 ? "checked='checked'" : '' %>
+          <li>
+            <p>
+              <input type="checkbox" <%= is_task_done %> />
+              <%= task.name %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+	<br/><hr/>
+	<div>
+		<input type="text" name="task" id="task_name" card_id="<%= @card.id %>"/>
+		<a href="#" name="add task" id="add_task" class="btn primary">add task</a>
+	</div>
+  </div>
+  
+  <div id="images" class="span-two-thirds">
+    <% if @card.attached_images.any? %>
+      <% @card.attached_images.each_with_index do |image, i| %>
+        <%= link_to image_tag(image.url), image.url, :class => "#{'last' if i % 3 == 2}" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% if @card.attached_docs.any? %>
+  <div id="copy" class="block">
+    <h4>Copy</h4>
+    <% @card.attached_docs.each do |copy| %>
+      <p class="<%= 'last' if copy == @card.attached_docs.last %>">
+        <%= copy.content %><br /><br />
+        <%= link_to "Edit", edit_attached_doc_path(copy) %> |
+        <%= link_to "Delete", "#" %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+<p>burda commentler olacak</p>
+<%= link_to 'Back', root_path %>

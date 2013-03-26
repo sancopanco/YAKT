@@ -1,0 +1,44 @@
+<div class="row-fluid elements">
+	<div class="span2">
+		
+	</div>
+	
+	<div class = "span6 offset1">
+		<h3>Update profile details</h3>
+		<%= form_for @user, url:profile_path, multipart:true do |f| %>
+			<%if @user.errors.any? %>
+					<div id = "error_explanation">
+						<h2><%="#{pluralize(@user.errors.count, "error")} prohibited this profile from 						being saved:"%></h2>
+						<ul>
+							<%@user.errors.full_messages.each do |err|%>
+							  <li>err<li>
+							<%end%>
+						</ul>
+					</div>
+			<%end%>
+			
+			<div class="control-group">
+				<%= f.label :email ,:class => 'control-label'%>
+				<div class="controls"><%=f.text_field :email%></div>
+			<div>
+			<%if @user.avatar.present?%>	
+				<div class="control-group">
+					<%= f.label :avatar ,"your current avatar "%>
+					<div class="controls"><%= image_tag avatar_url(@user)%></div>
+				<div>
+			<%else%>
+				<div class="control-group">
+					<%= f.label :avatar ,"Upload a new avatar (optional)"%>
+					<div class="controls"><%=f.file_field :avatar%></div>
+				<div>
+			<%end%>
+			<div class="form-actions">
+				<%= content_tag :button ,:type => :submit, :class => 'btn btn-primary' do%>
+				 Update Profile	
+				<%end%>
+			<div>
+		
+		
+		<%end%>
+	</div>
+</div>	 

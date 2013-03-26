@@ -1,0 +1,11 @@
+<h4>Comments</h4>
+
+<% @card.comments.each do |comment| %>
+    <%= div_for comment, :class => (comment == @card.comments.last ? 'last' : '') do %>
+      <%= image_tag comment.user.photo, :class => 'photo' %>
+      <div class="inside-comment">
+        <p><strong><%= comment.user.name %></strong> <%= time_ago_in_words(comment.created_at) %> ago</p>
+        <%= comment.body %>
+      </div>      
+    <% end %>
+<% end %>
