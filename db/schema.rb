@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321145351) do
+ActiveRecord::Schema.define(:version => 20130326140058) do
 
   create_table "attached_docs", :force => true do |t|
     t.text     "content"
@@ -25,13 +25,6 @@ ActiveRecord::Schema.define(:version => 20130321145351) do
     t.integer  "card_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "board_states", :force => true do |t|
-    t.integer  "board_id"
-    t.integer  "state_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "boards", :force => true do |t|
@@ -68,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130321145351) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "card_id"
   end
 
   create_table "priorities", :force => true do |t|

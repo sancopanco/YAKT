@@ -26,12 +26,12 @@
 					<%= f.label :avatar ,"your current avatar "%>
 					<div class="controls"><%= image_tag avatar_url(@user)%></div>
 				<div>
-			<%else%>
-				<div class="control-group">
-					<%= f.label :avatar ,"Upload a new avatar (optional)"%>
-					<div class="controls"><%=f.file_field :avatar%></div>
-				<div>
 			<%end%>
+		    <div class="control-group">
+				<%= f.label :avatar ,"Upload a new avatar (optional)"%>
+				<div class="controls"><%=f.file_field :avatar%></div>
+		     <div>
+			
 			<div class="form-actions">
 				<%= content_tag :button ,:type => :submit, :class => 'btn btn-primary' do%>
 				 Update Profile	

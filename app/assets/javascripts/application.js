@@ -18,4 +18,3 @@
 //= require bootstrap-modalmanager
 //= require_tree .
 
-var kanban = new Object;

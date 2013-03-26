@@ -13,13 +13,10 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "120x120>", :thumb => "48x48>" }
   
   has_many :memberships
-	has_many :accounts, :foreign_key => 'owner_id'
+	#has_many :accounts, :foreign_key => 'owner_id'
   has_many :boards, :through => :memberships
-  has_many :user_cards
-  has_many :cards, :through => :user_cards
-  
   def self.inactive_users(board)
-    board.users.select{|u| u.cards.size > 0}
+     board.users.select{|u| u.cards.any?}
   end
   
 end

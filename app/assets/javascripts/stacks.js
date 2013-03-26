@@ -17,7 +17,7 @@ $(function(){
     $('#inactive-users h3').html(text);
   };
 
-  kanban.make_users_sortable = function(){
+  kanban_app.make_users_sortable = function(){
     $('.users').sortable({
       connectWith:['.users'],
       cursor: 'move',
@@ -83,5 +83,5 @@ $(function(){
     }
   });
 
-  kanban.make_users_sortable();
+  kanban_app.make_users_sortable();
 });

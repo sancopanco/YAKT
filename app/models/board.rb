@@ -3,7 +3,7 @@ class Board < ActiveRecord::Base
   
   has_many :board_states
   has_many :states #,:through => :board_states
-  
+  has_many :cards
   has_many :memberships
   has_many :users, :through => :memberships
   before_create :put_default_values
