@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /cards
   # GET /cards.json
   def index
@@ -40,17 +42,15 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.json
   def create
+    
     @card = Card.new(params[:card])
-    @card.users << User.first # current user olmali
-    @card.state = State.first
-    @card.board = Board.first
-
+    current_board = Board.find(params[:board_id])
+    @card.state = current_board.states.find_by_name("Backlog")
+    #TODO make better
+    @card.requested_by = current_user.id
     if @card.save
-      if request.xhr?
-        render 'new_card'
-      else
-        redirect_to root_path
-      end
+       render 'new_card' and return if !!request.xhr?
+       redirect_to current_board
     end
   end
 
@@ -60,7 +60,7 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
 
     respond_to do |format|
-      if @card.update_attributes(params[:story])
+      if @card.update_attributes(params[:card])
         format.html { redirect_to @card, :notice => 'Card was successfully updated.' }
         format.json { head :ok }
       else

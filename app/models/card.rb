@@ -5,13 +5,15 @@ class Card < ActiveRecord::Base
 	belongs_to :priority
 	belongs_to :state
 	belongs_to :cardtype
-  belongs_to :board
-	has_many :tasks, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
+  has_many :user_cards
+  has_many :users,:through => :user_cards
+  
   has_many :attached_images
   has_many :attached_docs
   before_create :put_default_values
   def put_default_values
-    self.card ||= CardType.new(:name => "Empty Card")
+    #self.cardtype ||= CardType.new(:name => "Empty Card")
     self.position ||= 0
     self.priority ||= Priority.find_or_create_by_name("Low") 
     self.requested_by ||= User.find_or_create_by_name("Empty User")

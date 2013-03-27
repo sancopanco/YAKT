@@ -2,18 +2,18 @@
 
 <h4>Active stories</h4>
 <ul>
-  <% @active_stories.each do |story| %>
+  <% @active_stories.each do |card| %>
     <li>
-      <%= link_to story.name, story %>
+      <%= link_to card.name, card %>
     </li>
   <% end %>
 </ul>
 
 <h4>Inactive stories</h4>
 <ul>
-  <% @inactive_stories.each do |story| %>
+  <% @inactive_stories.each do |card| %>
     <li>
-      <%= link_to story.name, story %>
+      <%= link_to card.name, card %>
     </li>
   <% end %>
 </ul>

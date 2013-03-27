@@ -4,7 +4,7 @@
 	 <h3>
 	     <span style="font-size:14px;"><%= state.name %></span> 
 	    <% if state == @states.first %>
-	      <span id="new-story-button">
+	      <span id="new-card-button">
 	        <%= link_to '+', '#' %>
 	      </span>
 	    <% end %>
@@ -29,7 +29,7 @@
   <%= content_tag_for :ul, state do %>
 
     <% if state == @states.first %>
-      <div id="new-story" class="card">
+      <div id="new-card" class="card">
         <%= form_for @new_card do |f| %>
           <%= f.text_field :name %>
           <%= f.submit :class => 'hidden' %>

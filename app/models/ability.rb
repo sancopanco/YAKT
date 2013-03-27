@@ -5,7 +5,6 @@ class Ability
     user.memberships.each do |membership|
       if membership.role.name == "owner"
         can :manage, membership.board
-        can :manage, membership.board.account
       elsif membership.role.name == "member"
         can :manage, membership.board
       else

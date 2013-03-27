@@ -1,17 +1,16 @@
 class Board < ActiveRecord::Base
   attr_accessible  :description, :name
   
-  #has_many :board_states
-  has_many :states #,:through => :board_states
-  has_many :cards
+  has_many :states 
   has_many :memberships
+  has_many :cards, :through => :memberships
   has_many :users, :through => :memberships
-  before_create :put_default_values
+  before_create :set_default_states
   
-  def put_default_values 
-    backlog = State.find_or_create_by_name('Backlog')
-    todo = State.find_or_create_by_name('ToDo')
-    archive = State.find_or_create_by_name('Archive')
+  def set_default_states 
+    backlog ||= State.create(:name => 'Backlog')
+    todo ||= State.create(:name=>'ToDo')
+    archive ||= State.create(:name=>'Archive')
     self.states = [backlog, todo, archive]
   end
   

@@ -1,8 +1,6 @@
 class BoardsController < ApplicationController
-
-	before_filter :authenticate_user!
-  #before_filter :get_account, :only => [:index, :show, :new, :edit]
-
+  before_filter :authenticate_user!
+  
   def index
    @boards = current_user.boards
    respond_to do |format|
@@ -12,14 +10,13 @@ class BoardsController < ApplicationController
   end
 
   def show
-    
     @board = current_user.boards.find(params[:id])
     @states = @board.states
     if request.xhr?
       json = {}
 
       @states.each do |state|
-        json["state_#{state.id}"] = state.cards.map { |card| "story_#{card.id}" }
+        json["state_#{state.id}"] = state.cards.map { |card| "card_#{card.id}" }
       end
 
       render :json => json

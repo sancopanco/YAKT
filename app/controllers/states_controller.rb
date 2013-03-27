@@ -85,11 +85,11 @@ class StatesController < ApplicationController
   
   def sort
     unless params[:stories].blank?
-      story_ids = params[:stories].map {|i| i.scan(/\d+/).first}
+      card_ids = params[:stories].map {|i| i.scan(/\d+/).first}
       state_id  = params[:state].scan(/\d+/).first
 
-      Story.find(story_ids).each_with_index do |story, i|
-        story.update_attributes(:position => i, :state_id => state_id)
+      Story.find(card_ids).each_with_index do |card, i|
+        card.update_attributes(:position => i, :state_id => state_id)
       end
     end
 

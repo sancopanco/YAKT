@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326140058) do
+ActiveRecord::Schema.define(:version => 20130327082234) do
 
   create_table "attached_docs", :force => true do |t|
     t.text     "content"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20130326140058) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "card_id"
   end
 
   create_table "priorities", :force => true do |t|
@@ -129,7 +128,6 @@ ActiveRecord::Schema.define(:version => 20130326140058) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "photo"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
