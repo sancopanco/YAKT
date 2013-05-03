@@ -1,46 +1,130 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
-    create_table(:users) do |t|
-      ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
-      t.string :encrypted_password, :null => false, :default => ""
-
-      ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
-
-      ## Rememberable
-      t.datetime :remember_created_at
-
-      ## Trackable
-      t.integer  :sign_in_count, :default => 0
-      t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
-      t.string   :current_sign_in_ip
-      t.string   :last_sign_in_ip
-
-      ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
-
-      ## Lockable
-      # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
-
-      ## Token authenticatable
-      # t.string :authentication_token
-
-
-      t.timestamps
+    create_table "board_states", :force => true do |t|
+      t.integer  "board_id"
+      t.integer  "state_id"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
-    add_index :users, :email,                :unique => true
-    add_index :users, :reset_password_token, :unique => true
-    # add_index :users, :confirmation_token,   :unique => true
-    # add_index :users, :unlock_token,         :unique => true
-    # add_index :users, :authentication_token, :unique => true
+    create_table "boards", :force => true do |t|
+      t.string   "name"
+      t.string   "description"
+      t.integer  "account_id"
+      t.datetime "created_at",  :null => false
+      t.datetime "updated_at",  :null => false
+      t.integer  "owner_id"
+    end
+
+    create_table "cards", :force => true do |t|
+      t.string   "name"
+      t.string   "description"
+      t.integer  "cardtype_id"
+      t.integer  "state_id"
+      t.integer  "position"
+      t.integer  "priority_id"
+      t.integer  "requested_by"
+      t.integer  "assigned_to"
+      t.datetime "due_date"
+      t.datetime "completion_date"
+      t.datetime "created_at",      :null => false
+      t.datetime "updated_at",      :null => false
+      t.integer  "board_id"
+    end
+
+    create_table "cardtypes", :force => true do |t|
+      t.string   "name"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    create_table "memberships", :force => true do |t|
+      t.integer  "board_id"
+      t.integer  "role_id"
+      t.integer  "user_id"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    create_table "priorities", :force => true do |t|
+      t.string   "name"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    create_table "roles", :force => true do |t|
+      t.string   "name"
+      t.integer  "resource_id"
+      t.string   "resource_type"
+      t.datetime "created_at",    :null => false
+      t.datetime "updated_at",    :null => false
+    end
+
+    add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
+    add_index "roles", ["name"], :name => "index_roles_on_name"
+
+    create_table "sessions", :force => true do |t|
+      t.string   "session_id", :null => false
+      t.text     "data"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+    add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+    create_table "states", :force => true do |t|
+      t.string   "name"
+      t.integer  "capacity"
+      t.integer  "position"
+      t.string   "category"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+      t.integer  "board_id"
+    end
+
+    create_table "tasks", :force => true do |t|
+      t.string   "name"
+      t.integer  "card_id"
+      t.integer  "done"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    create_table "user_cards", :force => true do |t|
+      t.integer  "user_id"
+      t.integer  "card_id"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    create_table "users", :force => true do |t|
+      t.string   "email",                  :default => "", :null => false
+      t.string   "encrypted_password",     :default => "", :null => false
+      t.string   "reset_password_token"
+      t.datetime "reset_password_sent_at"
+      t.datetime "remember_created_at"
+      t.integer  "sign_in_count",          :default => 0
+      t.datetime "current_sign_in_at"
+      t.datetime "last_sign_in_at"
+      t.string   "current_sign_in_ip"
+      t.string   "last_sign_in_ip"
+      t.datetime "created_at",                             :null => false
+      t.datetime "updated_at",                             :null => false
+      t.string   "avatar_file_name"
+      t.string   "avatar_content_type"
+      t.integer  "avatar_file_size"
+      t.datetime "avatar_updated_at"
+    end
+
+    add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+    add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+    create_table "users_roles", :id => false, :force => true do |t|
+      t.integer "user_id"
+      t.integer "role_id"
+    end
+
+    add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
   end
 end
