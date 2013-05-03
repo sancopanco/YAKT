@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
   attr_accessible :cardtype_id, :completion_date, :description, :due_date, :name, 
-                  :position, :priority_id, :requested_by, :state_id
+                  :position, :priority_id, :requested_by, :state_id,:owner
 	
 	belongs_to :priority
 	belongs_to :state
@@ -15,8 +15,6 @@ class Card < ActiveRecord::Base
   def put_default_values
     #self.cardtype ||= CardType.new(:name => "Empty Card")
     self.position ||= 0
-    self.priority ||= Priority.find_or_create_by_name("Low") 
-    self.requested_by ||= User.find_or_create_by_name("Empty User")
   end
   
   scope :normal,  where("1=1")  #where(:icebox => false, :fast_lane => false)
@@ -26,6 +24,12 @@ class Card < ActiveRecord::Base
     User.where("id=?",self.requested_by).first
   end
   
-  
+  def owner
+    @owner
+  end
+  def owner=(owner)
+    @owner = owner
+  end
+ 
   #acts_as_taggable_on :labels
 end

@@ -41,26 +41,6 @@
 	</div>
   </div>
   
-  <div id="images" class="span-two-thirds">
-    <% if @card.attached_images.any? %>
-      <% @card.attached_images.each_with_index do |image, i| %>
-        <%= link_to image_tag(image.url), image.url, :class => "#{'last' if i % 3 == 2}" %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
 
-<% if @card.attached_docs.any? %>
-  <div id="copy" class="block">
-    <h4>Copy</h4>
-    <% @card.attached_docs.each do |copy| %>
-      <p class="<%= 'last' if copy == @card.attached_docs.last %>">
-        <%= copy.content %><br /><br />
-        <%= link_to "Edit", edit_attached_doc_path(copy) %> |
-        <%= link_to "Delete", "#" %>
-      </p>
-    <% end %>
-  </div>
-<% end %>
 <p>burda commentler olacak</p>
 <%= link_to 'Back', root_path %>

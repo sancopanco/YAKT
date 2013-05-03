@@ -3,14 +3,32 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     user.memberships.each do |membership|
-      if membership.role.name == "owner"
-        can :manage, membership.board
-      elsif membership.role.name == "member"
-        can :manage, membership.board
+      if membership.role.name == "admin"
+        can :manage, :all
+      elsif membership.role.name == "owner"
+        can :read, :all
+        can :create, Board
+        can [:update,:destroy], Board do |board|
+          board.owner?(user)
+        end
+      elsif membership.role.name == "worker"
+        can :read, :all    
+        can :create, Task
+        can [:update,:destroy], Task do |task|
+          task.owner?(user)
+        end
+      elsif membership.role.name == "observer"
+        can :read, :all 
       else
-        can :read, membership.board
+        can :read, :all
       end
     end
+    
+   
+    
+    
+    
+    
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
     # :read, :create, :update and :destroy.

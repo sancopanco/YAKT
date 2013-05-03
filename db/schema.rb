@@ -11,27 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327082234) do
+ActiveRecord::Schema.define(:version => 20130327101349) do
 
-  create_table "attached_docs", :force => true do |t|
-    t.text     "content"
-    t.integer  "card_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "attached_images", :force => true do |t|
-    t.string   "url"
-    t.integer  "card_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "board_states", :force => true do |t|
+    t.integer  "board_id"
+    t.integer  "state_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "boards", :force => true do |t|
     t.string   "name"
     t.string   "description"
+    t.integer  "account_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "owner_id"
   end
 
   create_table "cards", :force => true do |t|
@@ -47,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20130327082234) do
     t.datetime "completion_date"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "board_id"
   end
 
   create_table "cardtypes", :force => true do |t|

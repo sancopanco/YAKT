@@ -27,9 +27,9 @@ module ApplicationHelper
     if user.avatar.present?
       user.avatar.url(:medium)
     else
-      default_url = "#{root_url}images/guest.png"
-      gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-      "http://gravatar.com/avatar/#{gravatar_id}.pngs=48&d=#{CGI.escape(default_url)}"
+      default_url = "#{root_url}img/default_user_icon_128.png"
+      #gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+      #"http://gravatar.com/avatar/#{gravatar_id}.pngs=48&d=#{CGI.escape(default_url)}"
     end
   end
   def get_select_options(t, first_option, multiple = false)

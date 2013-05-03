@@ -43,6 +43,7 @@ class BoardsController < ApplicationController
   def create
     Board.transaction do
       @board = Board.new(params[:board])
+      @board.owner_id = current_user.id
       respond_to do |format|
         if @board.save
           current_user.memberships.create role: Role.find_by_name("owner"), board: @board

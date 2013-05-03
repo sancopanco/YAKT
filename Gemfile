@@ -13,6 +13,7 @@ gem 'thin'
 gem 'mysql2', '~> 0.3.11'
 gem 'paperclip'
 gem "railroady", "~> 1.1.0", :group => :development
+gem 'acts_as_versionable'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

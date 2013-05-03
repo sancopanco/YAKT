@@ -16,10 +16,16 @@ class User < ActiveRecord::Base
   has_many :user_cards
   has_many :cards,  :through => :user_cards
   has_many :memberships
-	has_many :boards, :through => :memberships
+	has_many :boards, :through => :memberships,:foreign_key => 'owner_id'
   
   def self.inactive_users(board)
-     board.users.select{|u| u.cards.size == 0}
+    board.users.select{|u| u.cards.size == 0}
+  end
+  
+  # Returns a scope of all the users that are NOT members
+  # of the given board
+  def self.not_members_of(board)
+    where("id NOT IN (?)", board.memberships.map(&:user_id).uniq)
   end
   
 end

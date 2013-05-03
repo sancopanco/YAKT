@@ -76,7 +76,6 @@ var KANBAN_APP = {
         },
         stop: function(){
           $('.droppable').removeClass('droppable');
-          KANBAN_APP.update_inactive_users_text();
         },
         update: function(){
           var data = {};

@@ -1,9 +1,10 @@
 <div class="container">
+  <div class="row">	
   <h3>Boards I own</h3>
       <%if @owning_boards.any?%>
         
           <% @owning_boards.each do |b|%>
-		   <div class="board">
+		    <div class="board">
 			   <a class="newtab-link" href="<%= board_path(b)%>">  
 			    <span class="newtab-title"><%=b.name%></span>
 		   		</a>
@@ -17,24 +18,9 @@
  				   Delete Board
   		   		</a>
 			</div>
-           
-		   <%end%>	
-				
-      <%else%>
-        You don't own any boards yet.
-	  <%end%>
-     
-      <%if @member_boards.any?%>
-        <h3>Member in Boards</h3>
-        <ul class="nav nav-list bs-docs-sidenav">
-          <%@member_boards.each do |b|%>
-            <li>
-              <%= link_to board_path(b) do%>
-                <%=b.name%>
-                <i class="icon-chevron-right"></i>
-				<%end%>
-			</li>	
 		  <%end%>	
-		</ul>
-	  <%end%>			
+		<%else%>
+		        You don't own any boards yet.
+		<%end%>
+	   
 </div>
