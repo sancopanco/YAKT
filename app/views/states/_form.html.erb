@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :board %><br />
-    <%= get_select_options(Board,'choose board',false)  %>
+    <%= f.select :board_id, @boards.collect{|b| [b.name,b.id]}, :selected => @state.board_id %>
   </div>
   <div class="actions">
     <%= f.submit %>
