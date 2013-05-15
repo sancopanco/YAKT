@@ -4,15 +4,23 @@
 			<%if user_signed_in? %>
 				<div class="nav-collapse container-fluid">
 					<ul class="nav">
-						<li class="divider-vertical"><%=link_to 'Boards', '/dashboard'%></li>
+						<li class="divider-vertical"><%=link_to 'DashBoard', '/dashboard'%></li>
 						<li class="divider-vertical">
 							<a href="/boards/new" id="new-board" >
 								<i class="icon-plus"></i>	
 								New Board	
 							</a>
+							
+						</li>
+						<li class="divider-vertical">
+							<a href="/boards" id="new-board" >
+								<i class="icon-edit"></i>	
+								Edit My Boards	
+							</a>
+							
 						</li>
 						
-					</ul>
+				   </ul>
 					
 				  <ul class="nav pull-right">
 						<div class="btn-group">

@@ -1,24 +1,14 @@
 <div class="container">
   <div class="row">	
-  <h3>Boards I own</h3>
-      <%if @owning_boards.any?%>
+    <%if @owning_boards.any?%>
         
           <% @owning_boards.each do |b|%>
 		    <div class="board">
 			   <a class="newtab-link" href="<%= board_path(b)%>">  
 			    <span class="newtab-title"><%=b.name%></span>
-		   		</a>
-				<br/><br/><br/>
- 			   <a class="btn btn-mini" href="boards/<%=b.id%>/edit" >  
-				   <i class="icon-edit"></i>
-				   Edit Board
- 		   		</a>
-  			   <a class="btn btn-mini" href="boards/<%=b.id%>" data-method="delete">  
- 				   <i class="icon-remove"></i>
- 				   Delete Board
-  		   		</a>
+		   	   </a>
 			</div>
-		  <%end%>	
+		  <%end%>		
 		<%else%>
 		        You don't own any boards yet.
 		<%end%>
