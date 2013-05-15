@@ -27,5 +27,9 @@ class User < ActiveRecord::Base
   def self.not_members_of(board)
     where("id NOT IN (?)", board.memberships.map(&:user_id).uniq)
   end
+  def get_boards_by_role(role) 
+    self.memberships.select{|m| m.role_id == role}.collect{|u_m| u_m.board}
+  end
+  
   
 end
