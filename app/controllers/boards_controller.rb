@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
 
   def show
     @board = current_user.boards.find(params[:id])
-    @states = @board.states
+    @states = @board.states.sort{|a,b| a.position.to_i <=> b.position.to_i}
     if request.xhr?
       json = {}
 
@@ -63,7 +63,7 @@ class BoardsController < ApplicationController
 
   def update
     @board = Board.find(params[:id])
-
+    params[:board][:updated_by] = current_user
     respond_to do |format|
       if @board.update_attributes(params[:board])
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }
@@ -84,6 +84,15 @@ class BoardsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def settings
+    @board = Board.find_by_id(params[:id])
+    render :layout => "settings"
+  end
+  def memberships
+    @board = Board.find_by_id(params[:id])
+    render :layout => "settings"
+  end
+  
  
 end

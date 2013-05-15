@@ -16,7 +16,6 @@ class StatesController < ApplicationController
     @state = State.find(params[:id], :include => :cards)
     @active_stories = @state.cards.first(5)
     @inactive_stories = @state.cards - @active_stories
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @state }
@@ -27,7 +26,7 @@ class StatesController < ApplicationController
   # GET /states/new.json
   def new
     @state = State.new
-
+    @boards = Board.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @state }
@@ -37,13 +36,13 @@ class StatesController < ApplicationController
   # GET /states/1/edit
   def edit
     @state = State.find(params[:id])
+    @boards = Board.all
   end
 
   # POST /states
   # POST /states.json
   def create
     @state = State.new(params[:state])
-
     respond_to do |format|
       if @state.save
         format.html { redirect_to @state, :notice => 'State was successfully created.' }
@@ -59,7 +58,6 @@ class StatesController < ApplicationController
   # PUT /states/1.json
   def update
     @state = State.find(params[:id])
-
     respond_to do |format|
       if @state.update_attributes(params[:state])
         format.html { redirect_to @state, :notice => 'State was successfully updated.' }

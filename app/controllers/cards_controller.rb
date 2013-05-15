@@ -58,9 +58,12 @@ class CardsController < ApplicationController
   # PUT /cards/1.json
   def update
     @card = Card.find(params[:id])
-
+    params[:card][:updated_by] = current_user
     respond_to do |format|
       if @card.update_attributes(params[:card])
+        
+        @card.versions.last.user = current_user
+        @card.versions.last.save
         format.html { redirect_to @card, :notice => 'Card was successfully updated.' }
         format.json { head :ok }
       else
@@ -86,9 +89,9 @@ class CardsController < ApplicationController
     unless params[:cards].blank?
       card_ids = params[:cards].map {|i| i.scan(/\d+/).first}
       state_id  = params[:state].scan(/\d+/).first
-
+         
       Card.find(card_ids).each_with_index do |card, i|
-        card.update_attributes(:position => i, :state_id => state_id)
+        card.update_attributes(:position => i, :state_id => state_id,:updated_by => current_user)
       end
     end
 

@@ -1,5 +1,7 @@
 class State < ActiveRecord::Base
-  attr_accessible :capacity, :category, :name, :position
+  #binding.pry
+  attr_accessible :capacity, :category, :name, :position, :board_id
+  versioned
   before_create :put_default_values
   has_many :cards
   belongs_to :board

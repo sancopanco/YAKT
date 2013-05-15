@@ -1,12 +1,10 @@
 class UserDashboardController < ApplicationController
   before_filter :authenticate_user!
   def index
-    #@current_user = User.first
     #TODO:change this hard code
-    owner_role = 1
-    member_role = 2
-    @owning_boards = Board.joins(:memberships).where('memberships.role_id = ?', owner_role).where('memberships.user_id = ?', current_user.id)
-    @member_boards = Board.joins(:memberships).where('memberships.role_id = ?', member_role).where('memberships.user_id = ?', current_user.id)
+    #binding.pry
+    @owning_boards = current_user.get_boards_by_role(Role::OWNER)
+    @member_boards = current_user.get_boards_by_role(Role::MEMBER)
     @new_board = Board.new
     render 'home/dashboard'
   end

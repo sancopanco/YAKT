@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
-  attr_accessible :card_id, :done, :name
+  attr_accessible :card_id, :done, :name, :updated_by
+  versioned
   before_save :default_values
   
   def default_values

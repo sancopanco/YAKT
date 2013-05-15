@@ -1,7 +1,8 @@
 class Card < ActiveRecord::Base
   attr_accessible :cardtype_id, :completion_date, :description, :due_date, :name, 
-                  :position, :priority_id, :requested_by, :state_id,:owner
-	
+                  :position, :priority_id, :requested_by, :state_id,:owner,:updated_by
+                  
+  versioned                
 	belongs_to :priority
 	belongs_to :state
 	belongs_to :cardtype

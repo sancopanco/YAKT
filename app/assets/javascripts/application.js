@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.reverseorder
 //= require bootstrap
+//= require jquery.reverseorder
 //= require bootstrap-modalmanager
 //= require_tree .
 

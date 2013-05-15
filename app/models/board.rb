@@ -1,7 +1,6 @@
 class Board < ActiveRecord::Base
-  attr_accessible :description, :name, :owner
-  
-  
+  attr_accessible :description, :name, :owner,:updated_by
+  versioned
   belongs_to :owner, :class_name => User, :foreign_key => "owner_id"
   has_many :states 
   has_many :memberships
@@ -24,6 +23,9 @@ class Board < ActiveRecord::Base
   def owner?(u)
     u.id == self.owner_id
   end
+  
+  
+  
   # Return all boards owned by account
   #scope :all_where_account, lambda{ |account| { :conditions => { :account_id => account.to_i } } }
 end
