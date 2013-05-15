@@ -1,23 +1,22 @@
 MtmKanban::Application.routes.draw do
   #match "home/index" => 'home#index', :via => :get, :as => :home
-  authenticated :user do
-    match 'dashboard' => 'user_dashboard#index', :as => 'user_root'
-  end
-  
   root :to => "home#index"
-  match 'dashboard' => 'user_dashboard#index', :as => 'user_root'
+  authenticated :user do
+    match 'dashboard' => 'user_dashboard#index',:via => :get, :as => 'user_root'
+  end
   devise_for :users
   resources :users
   resources :tasks
-
   resources :boards do
     resources :states do
       resources :cards
     end
     resources :memberships
+    member do
+      get :settings 
+      get :members ,:action => "memberships"
+    end
   end
-  
-  
   resources :boards
   resources :cards, :users do
     post :sort, :on => :collection
@@ -25,15 +24,13 @@ MtmKanban::Application.routes.draw do
   #resources :cards do  
   #  match "update_users" => 'cards#update_users', :via => :put, :as => :update_users
   #end
-  #match "cards/update_positions" => 'work_items#update_positions', :via => :post, :as => :update_positions
-  #match "states/update_positions" => 'statess#update_positions', :via => :post, :as => :update_states_positions
+ 
 
   resources :states
   resources :priorities
   resource :profile
   
-  #For Ajax
-  #match 'open_model_to_create_new_board' => 'user_dashboard#open_model_to_create_new_board'
+  #For Ajax Requests
   match 'add_task_to_card' => 'cards#add_task_to_card'
   match 'open_new_card_modal' => 'cards#open_new_card_modal'
   
