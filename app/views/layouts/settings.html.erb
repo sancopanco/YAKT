@@ -1,0 +1,24 @@
+<!DOCTYPE Html>
+<html>
+	<%= render :partial => "layouts/head"%>
+	<%= render :partial => 'layouts/navigation'%>
+	<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+		<li class="active">
+			<%= link_to  "settings",settings_board_path(@board), :data_toogle => "tab" %>
+		</li>
+		<li>
+			<%= link_to  "members",members_board_path(@board), :data_toogle => "tab" %>
+		</li>
+    </ul>
+    <div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<%= yield :settings_content%>
+		</div>
+		<div class="tab-pane" id="tab2">
+			<%= yield :memberships_content%>
+		</div>
+    </div>
+    </div>
+	
+</html>
