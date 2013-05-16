@@ -8,45 +8,40 @@
 
 
 # UserRoles
-owner_role =  Role.create(:name =>  'owner')
-member_role = Role.create(:name  => 'member')
-s2 = State.create(:name => 'TODO', :capacity=> 5, :position => 2,:category =>"Custom")
-s1 = State.create(:name => 'BackLog', :capacity => 5, :position => 1,:category =>"BackLog")
-s3 = State.create(:name => 'Archive', :capacity=> 5, :position => 3,:category =>"Archive")
-#test user
-u = User.create(:email=>"test@test.com",:password => "123")
-b = Board.create(:name=>"test_app")
-b.owner = u
-u.memberships.create role: owner_role, board: b
+owner_role  =  Role.find_or_create_by_name(:name =>  'owner')
+member_role =  Role.find_or_create_by_name(:name => 'member')
+viewer_role =  Role.find_or_create_by_name(:name => 'viewer')
+admin_role  =  Role.find_or_create_by_name(:name  => 'admin')
 
 
-#USER STATE AND CARDS
+u_owner  =  User.create(:email=>"owner@example.com",:password => "123")
+u_viewer = User.create(:email=>"viewer@example.com",:password => "123")
+u_member = User.create(:email=>"member@example.com",:password => "123")
+u_admin  = User.create(:email=>"admin@example.com",:password => "123")
+b = Board.find_or_create_by_name(:name=>"test_board")
+b.owner = u_owner
+b.save
+s2 = State.create(:name => 'TODO', :capacity=> 5, :position => 2,:category =>"Custom",:board => b)
+s1 = State.create(:name => 'BackLog', :capacity => 5, :position => 1,:category =>"BackLog",:board => b)
+s3 = State.create(:name => 'Archive', :capacity=> 5, :position => 3,:category =>"Archive",:board => b)
+
+#owner user
+u_owner.add_role :member, b
+#viwer user
+u_viewer.add_role :viewer, b
+#team member user
+u_member.add_role :admin, b
+
+
+
+#BOARD STATES
 s1.board = b
+s1.save
 s2.board = b
+s2.sabe
 s3.board = b
 
-#have some cards
 
-p = Priority.create(:name=> 'Low') 
-c1 = Card.create(:name=>"test1",:position=>0)
-c1.priority = p 
-c1.owner = u
-c1.state = s1
-c1.save
-#have have some task
-t1 = Task.create(:name=>"test")
-t1.card = c1
-
-c2 = Card.create(:name=>"test2",:position=>0)
-c2.priority =  p
-c2.owner = u
-c2.state = s1
-c2.save
-c3 = Card.create(:name=>"test3",:position=>0)
-c3.priority =  p
-c3.owner = u
-c3.state = s1
-c3.save
 
 
 

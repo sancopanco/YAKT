@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515124706) do
+ActiveRecord::Schema.define(:version => 20130516112405) do
 
   create_table "board_states", :force => true do |t|
     t.integer  "board_id"
@@ -47,14 +47,6 @@ ActiveRecord::Schema.define(:version => 20130515124706) do
 
   create_table "cardtypes", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "memberships", :force => true do |t|
-    t.integer  "board_id"
-    t.integer  "role_id"
-    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
