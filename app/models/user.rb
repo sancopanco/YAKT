@@ -15,21 +15,19 @@ class User < ActiveRecord::Base
  
   has_many :user_cards
   has_many :cards,  :through => :user_cards
-  has_many :memberships
-	has_many :boards, :through => :memberships,:foreign_key => 'owner_id'
-  
+  has_many :boards,:foreign_key => 'owner_id'
+  after_create :set_initial_role
+  def set_initial_role
+    self.add_role :viewer
+  end
   def self.inactive_users(board)
-    board.users.select{|u| u.cards.size == 0}
+    all.select{|u| u.cards.size == 0}
   end
   
-  # Returns a scope of all the users that are NOT members
-  # of the given board
-  def self.not_members_of(board)
-    where("id NOT IN (?)", board.memberships.map(&:user_id).uniq)
+  def self.not_members_of_board
+    all.select{|u| !u.has_role? :member,board}
   end
   def get_boards_by_role(role) 
-    self.memberships.select{|m| m.role_id == role}.collect{|u_m| u_m.board}
+    Board.with_role role, self
   end
-  
-  
 end
