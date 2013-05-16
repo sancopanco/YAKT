@@ -18,9 +18,6 @@ class Card < ActiveRecord::Base
     self.position ||= 0
   end
   
-  scope :normal,  where("1=1")  #where(:icebox => false, :fast_lane => false)
-  scope :icebox,  where("1=1")  #where(:icebox => true)
-  scope :fast_lane, where("1=1") #where(:fast_lane => true)
   def requested_user
     User.where("id=?",self.requested_by).first
   end
