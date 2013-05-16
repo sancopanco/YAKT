@@ -21,7 +21,7 @@ class BoardsController < ApplicationController
 
       render :json => json
     else
-      @inactive_users = User.inactive_users(@board)
+      @inactive_users = User.inactive_users(@board) 
       @new_card = Card.new      
     end
     
@@ -44,11 +44,10 @@ class BoardsController < ApplicationController
     Board.transaction do
       @board = Board.new(params[:board])
       @board.owner_id = current_user.id
+      
       respond_to do |format|
         if @board.save
-          current_user.memberships.create role: Role.find_by_name("owner"), board: @board
-          #TODO: burayyı düzelt user_root olmali
-          #BoardMailer.inform_new_board_created(@board, current_user).deliver
+          current_user.add_role :owner ,@board
           format.html { redirect_to '/dashboard', notice: 'Board was successfully created.' }
           format.json do
             render json: @board, status: :created
