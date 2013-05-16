@@ -1,3 +1,10 @@
 <%=content_for :settings_content do%>
 	<p>settings</p>
+	<%binding.pry%>
+	<%if can? :edit , @board%>
+		<%= link_to 'Edit', edit_board_path(@board) %>
+	<%end%>
+	<%if can? :destroy, @board  %>
+		<%= link_to 'Destroy', @board, :confirm => 'Are you sure?', :method => :delete %>
+	<%end%>
 <%end%>

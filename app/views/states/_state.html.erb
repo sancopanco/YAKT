@@ -39,7 +39,7 @@
 
     <div class="drop-zone"></div>
 
-    <% state.cards.normal.each do |card| %>
+    <% state.cards.each do |card| %>
       <%= render 'stacks/stack', :card => card %>
     <% end %>
 

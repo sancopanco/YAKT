@@ -1,5 +1,4 @@
-<div class="container">
-  <div class="row">	
+ <div>	
     <%if @owning_boards.any?%>
         
           <% @owning_boards.each do |b|%>
@@ -11,6 +10,5 @@
 		  <%end%>		
 		<%else%>
 		        You don't own any boards yet.
-		<%end%>
-	   
-</div>
+     <%end%>
+ </div>	 

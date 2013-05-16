@@ -32,10 +32,6 @@ MtmKanban::Application.routes.draw do
   
   #For Ajax Requests
   match 'add_task_to_card' => 'cards#add_task_to_card'
-  match 'open_new_card_modal' => 'cards#open_new_card_modal'
-  
-  
- 
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

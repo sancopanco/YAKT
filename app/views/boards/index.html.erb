@@ -1,26 +1,22 @@
-<table class="table table-bordered table-striped">
+<table class="table table-striped">
 	<thead>
 	    <tr>
-	      <th>#</th>
-	      <th>&nbsp;</th>
-	      <th>&nbsp;</th>
-	      <th>&nbsp;</th>
-	      <th>&nbsp;</th>
+	      <th>boards</th>
 	      <th>&nbsp;</th>
 	    </tr>
   </thead>
   <tbody>
   	<% @boards.each do |board| %>
   	<tr>
-    	<td><%= board.name %></td>
-    	<td><%= link_to 'Show', board %></td>
-    	<td><%= link_to 'Edit', edit_board_path(board) %></td>
-    	<td><%= link_to 'Destroy', board, :confirm => 'Are you sure?', :method => :delete %></td>
-		<td><%= link_to 'settings', settings_board_path(board) %></td>
-		<td><%= link_to 'members', members_board_path(board) %></td>
-  	</tr>
+    	<td><%= link_to board.name, board %></td>
+		<td>
+			<%=link_to  settings_board_path(board),:class=>'btn' do%>
+				<i class="icon-cog"></i> settings
+			<%end%>
+		</td>
+	</tr>
 	<% end %>
-</tbody>
+  </tbody>
 </table>
 
 <br />
