@@ -2,27 +2,22 @@ class Ability
   include CanCan::Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    user.memberships.each do |membership|
-      if membership.role.name == "admin"
+    if user.has_role? :admin
         can :manage, :all
-      elsif membership.role.name == "owner"
+    elsif user.has_role? :member
         can :read, :all
         can :create, Board
-        can [:update,:destroy], Board do |board|
-          board.owner?(user)
-        end
-      elsif membership.role.name == "worker"
-        can :read, :all    
         can :create, Task
-        can [:update,:destroy], Task do |task|
-          task.owner?(user)
+        can [:update,:destroy,:edit], Board do |board|
+          user.has_role? :owner,board
         end
-      elsif membership.role.name == "observer"
-        can :read, :all 
-      else
+        can [:update,:destroy], Task do |task|
+          user.has_role? :owner,task
+        end
+    elsif user.has_role? :viewer
         can :read, :all
-      end
     end
+    
     
    
     
