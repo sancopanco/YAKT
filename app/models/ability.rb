@@ -4,19 +4,20 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
         can :manage, :all
-    elsif user.has_role? :member
-        can :read, :all
-        can :create, Board
-        can :create, Task
-        can [:update,:destroy,:edit], Board do |board|
-          user.has_role? :owner,board
-        end
-        can [:update,:destroy], Task do |task|
-          user.has_role? :owner,task
-        end
-    elsif user.has_role? :viewer
-        can :read, :all
+    end    
+    
+    can [:update,:destroy,:edit], Board do |board|
+      user.has_role? :owner,board
     end
+    
+    can :read, Board do |board|
+      user.has_role? :viewer,board
+    end
+    
+    can [:update,:destroy], Task do |task|
+      user.has_role? :owner,task
+    end
+    
     
     
    

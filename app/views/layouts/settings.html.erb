@@ -2,23 +2,34 @@
 <html>
 	<%= render :partial => "layouts/head"%>
 	<%= render :partial => 'layouts/navigation'%>
-	<div class="tabbable tabs-left">
-    <ul class="nav nav-tabs">
-		<li class="active">
-			<%= link_to  "settings",settings_board_path(@board), :data_toogle => "tab" %>
-		</li>
-		<li>
-			<%= link_to  "members",members_board_path(@board), :data_toogle => "tab" %>
-		</li>
-    </ul>
-    <div class="tab-content">
-		<div class="tab-pane active" id="tab1">
-			<%= yield :settings_content%>
-		</div>
-		<div class="tab-pane" id="tab2">
-			<%= yield :memberships_content%>
-		</div>
-    </div>
-    </div>
+	<%= settings_board_path(@board)%>
+	<div class="context tabbable">
+	  <ul class="nav nav-tabs">
+	    <li class="active">
+	    	<a href="#pane1"  data-toogle = "tab">settings</a>
+	    </li>
+	    <li>
+	    	<a href="#pane2"  data-toogle="tab" >members</a>
+	    </li>
+	    <li><a href="#pane3" data-toggle="tab">Tab 3</a></li>
+	    <li><a href="#pane4" data-toggle="tab">Tab 4</a></li>
+	  </ul>
+	  <div class="tab-content">
+	    <div id="pane1" class="tab-pane active">
+		  <%= yield :settings_content%>
+	    </div>
+	    <div id="pane2" class="tab-pane">
+		  <%= yield :memberships_content%>
+	    </div>
+	    <div id="pane3" class="tab-pane">
+	      <h4>Pane 3 Content</h4>
+	    </div>
+	    <div id="pane4" class="tab-pane">
+	      <h4>Pane 4 Content</h4>
+	    </div>
+	  </div><!-- /.tab-content -->
+	</div><!-- /.tabbable -->
+	
+	
 	
 </html>
