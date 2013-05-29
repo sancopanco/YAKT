@@ -59,10 +59,7 @@ class UsersController < ApplicationController
       users = user_ids.collect{|uid| User.find(uid)}
       card_id = params[:card].scan(/\d+/).first
       card = Card.find_by_id(card_id)
-      #board = Board.find(params[:board_id])
-      #role = Role.find_or_create_by_name(:name=>"owner")
       unless card.nil?
-        #puts ">>>>>>>>>>>>>>>>>>>user_ids=#{params[:users]} card=#{card} users=#{users}"
         card.users = users
         card.save
       end
