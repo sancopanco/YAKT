@@ -1,0 +1,98 @@
+/*The MIT License (MIT)
+
+Copyright (c) 2013 kevin bongart,ali kargin,tansel ersavas,hande kuskonmaz,yusuf aydin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE
+*/
+
+#header {
+  margin-bottom: 32px;
+}
+
+#header h3 {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+h4 {
+  margin-bottom: 16px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.block {
+  background-color: white;
+  padding: 16px 24px;
+  border: 1px solid #CCCCCC;
+  -webkit-box-shadow: 0px 0px 1px #CCC;
+     -moz-box-shadow: 0px 0px 1px #CCC;
+          box-shadow: 0px 0px 1px #CCC;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+#images a {
+  float: left;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+
+#images a.last {
+  margin-right: 0;
+}
+
+#images img {
+  max-width: 184px;
+  max-height: 184px;
+  border: 1px solid #CCCCCC;
+  padding: 2px;
+  background-image: url(/images/paper_2.png);
+  background-repeat: repeat;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 0px 1px #CCC;
+     -moz-box-shadow: 0px 0px 1px #CCC;
+          box-shadow: 0px 0px 1px #CCC;
+}
+
+#copy p {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+#copy p.last {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: transparent;
+}
+
+.comment {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #3B3B3B;
+}
+
+.comment.last {
+  border-bottom: none;
+}

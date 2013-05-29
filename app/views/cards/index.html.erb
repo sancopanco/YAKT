@@ -1,26 +1,43 @@
 <h1>Listing cards</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>State</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @cards.each do |card| %>
-  <tr>
-    <td><%= card.name %></td>
-    <td><%= card.description %></td>
-    <td><%= card.state.name %></td>
-	<td><%= link_to 'Show', card %></td>
-    <td><%= link_to 'Edit', edit_card_path(card) %></td>
-    <td><%= link_to 'Destroy', card, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<table class="table table-striped">
+	<thead>
+	    <tr>
+	      <th>cards</th>
+	      <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+	    </tr>
+  </thead>
+  <tbody>
+  	<% @cards.each do |card| %>
+  	<tr>
+    	<td><%= link_to card.name, card %></td>
+		<td>
+			<%=link_to  settings_card_path(card),:class=>'btn' do%>
+				<i class="icon-cog"></i> settings
+			<%end%>
+		</td>
+		<td>
+			<%if can? :edit, card  %>
+				<%=link_to  members_card_path(card),:class=>'btn' do%>
+				    <i class="icon-cog"></i> members
+				<%end%>
+			<%end%>
+		</td>	
+		<td>
+			<%if can? :destroy, card  %>
+				<%= link_to 'Destroy', card, :confirm => 'Are you sure?', 
+				                  :method => :delete,:class => "btn btn-danger" %>
+			<%end%>
+		</td>	
+	</tr>
+	<% end %>
+  </tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Card', new_card_path %>
+<%= link_to 'New Card', new_card_path,:class=>'btn' %>
+
+
+

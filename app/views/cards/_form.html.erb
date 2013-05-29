@@ -1,13 +1,9 @@
-<%= form_for(@card) do |f| %>
-  <% if @card.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@card.errors.count, "error") %> prohibited this card from being saved:</h2>
+<%= simple_form_for @card,:url => @url,:html => { :class => 'form-horizontal' }  do |f| %>
 
-      <ul>
-      <% @card.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <% if notification = f.error_notification %>
+    <div class="alert alert-error fade in">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <%= notification %>
     </div>
   <% end %>
 
@@ -19,7 +15,11 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field">
+	  <%= f.label :card_type %><br />
+	  <%= f.select :style_id, @card_styles.collect{|c_s| [c_s.name, c_s.id]},:selected=>params[:style_id]%>
+  </div>  
+  <div class="form-actions">
+    <%= f.submit 'Save', :class => 'btn btn-primary' %>
   </div>
 <% end %>

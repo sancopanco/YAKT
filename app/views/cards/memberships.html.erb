@@ -1,0 +1,50 @@
+
+<%= form_tag addmember_card_path(@card),:id=>'add_member' do%>
+ <table class="table table-striped">
+	<tr>
+		<td><%=label_tag :email%>  </td>
+		<td><%= text_field_tag :email%></td>
+		<td><select id="role_id" name="role_id"><%= options_for_select(@all_roles)%></select></td>
+		<td>
+			<%= submit_tag "add member",:id => "add_member_button" ,:class => "btn"%>
+		</td>
+	 </tr>
+  </table>
+<%end%>
+<table class="table members table-striped">
+	<thead>
+	    <tr>
+	      <th>card users</th>
+	      <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+	    </tr>
+  </thead>
+  <tbody>
+	
+	<% @member_users.each_pair do |role_key,users| %>
+		<%users.each do |user|%>
+  			<tr>
+    			<td>
+					<%= user.email %>
+				</td>
+		       <td>
+			     <%if can? :edit,@card %>
+			      <%=select_tag 'role_id',options_for_select(@all_roles,
+				  		:selected => role_key),'user_id'=>user.id,'card_id'=>@card.id %>
+			     <%else%>
+			      <%= role_key %>
+			    <%end%>
+		       </td>	
+		      <td>
+			  <%if can? :destroy, @card  %>
+				<%= link_to 'remove', @card, :confirm => 'Are you sure?', 
+				                  :method => :delete,:class => "btn btn-danger" %>
+			  <%end%>
+		     </td>	
+	     </tr>
+		<%end%>
+	<% end %>
+  </tbody>
+</table>
+

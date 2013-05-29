@@ -1,46 +1,19 @@
-<div id="header">
-  <h3><%= @card.name %></h3>
 
-  <p><%= @card.description %></p>
-
-  <p>
-    Requested by 
-	<% image_path avatar_url(@card.requested_user) %>
-    <%= time_ago_in_words(@card.created_at) %> ago |
-    <%= link_to "Edit", edit_card_path(@card) %>
-  </p>
-
-  <div class="users clearfix card-page">
-    <% @card.users.each do |user| %>
-      <%= image_tag user.avatar, :class => 'user photo', :id => "user_#{user.id}" %>
-    <% end %>
-  </div>
+<div id="head">
+   <%= render 'inactive_users' %>
+   <%= time_ago_in_words(@card.created_at) %> ago |
+	    <%= link_to "Edit", edit_card_path(@card) %> |
+   <a id="add_card" href="<%=newsubcard_card_path(@card)%>">add card</a>
 </div>
-
-<div class="row">
-	
-  <div class="span-one-third">
-    <div id="tasks" class="block">
-      <h4>Tasks</h4>
-      <ul id="card_tasks">
-        <% @card.tasks.each do |task| %>
-			<%is_task_done = task.done == 1 ? "checked='checked'" : '' %>
-          <li>
-            <p>
-              <input type="checkbox" <%= is_task_done %> />
-              <%= task.name %>
-            </p>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-	<br/><hr/>
-	<div>
-		<input type="text" name="task" id="task_name" card_id="<%= @card.id %>"/>
-		<a href="#" name="add task" id="add_task" class="btn primary">add task</a>
-	</div>
-  </div>
-  
-
-<p>burda commentler olacak</p>
-<%= link_to 'Back', root_path %>
+<br/><br/>
+<table class="states table table-striped">
+<tbody>	
+  <tr class="success">	
+    <% @states.each do |state| %>
+      <%=render state%>
+    <% end %>
+  </tr>
+</tbody> 
+</table>
+<%= javascript_include_tag "card" %>
+<%= javascript_include_tag "user" %>

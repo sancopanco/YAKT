@@ -1,0 +1,16 @@
+<tr>
+	<td>
+		<%= user.email %>
+	</td>
+	<td>
+		<select>
+			<%= options_for_select(@all_roles,:selected => 1)%>
+		</select>
+	</td>	
+	<td>
+		<%if can? :destroy, @card  %>
+			<%= link_to 'remove', @card, :confirm => 'Are you sure?', 
+			                  :method => :delete,:class => "btn btn-danger" %>
+		<%end%>
+	</td>	
+</tr>

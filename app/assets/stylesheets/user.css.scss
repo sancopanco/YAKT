@@ -1,4 +1,4 @@
-<!--The MIT License (MIT)
+/*The MIT License (MIT)
 
 Copyright (c) 2013 kevin bongart,ali kargin,tansel ersavas,hande kuskonmaz,yusuf aydin
 
@@ -19,16 +19,42 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
--->
+*/
 
-<td id="state_<%=state.id%>" class="state ui-sortable" style="width:25%;">
-	<div class="state-header">
-		<%=state.name%>
-		<a title="Close" class="toggle-state" href="#">×</a>
-	</div>	
-	<div class="state-content" >
-		<% state.cards.each do |card| %>
-			<%= render card %>
-		<% end %>
-	</div>
-</td>
+.users {
+  border: 2px solid transparent;
+}
+
+#inactive-users {
+  margin-bottom: 12px;
+  padding: 12px;
+}
+
+#inactive-users h3 {
+  display: inline;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+  margin: 3px 0 0 0;
+  float: left;
+}
+
+.users .photo,
+.comment .photo {
+  display: inline-block;
+  float: left;
+  max-height: 40px;
+  max-width: 40px;
+  margin-right: 6px;
+  border: 2px solid white;
+  -webkit-box-shadow: 0px 0px 2px #444;
+     -moz-box-shadow: 0px 0px 2px #444;
+          box-shadow: 0px 0px 2px #444;
+}
+
+.users.droppable {
+  border: 2px dashed #42C282;
+  background: white;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}

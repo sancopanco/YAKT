@@ -1,14 +1,14 @@
  <div>	
-    <%if @owning_boards.any?%>
+    <%if @owning_cards.any?%>
         
-          <% @owning_boards.each do |b|%>
+          <% @owning_cards.each do |card|%>
 		    <div class="board">
-			   <a class="newtab-link" href="<%= board_path(b)%>">  
-			    <span class="newtab-title"><%=b.name%></span>
+			   <a class="newtab-link" href="<%= card_path(card)%>">  
+			    <span class="newtab-title"><%=card.name%></span>
 		   	   </a>
 			</div>
 		  <%end%>		
 		<%else%>
-		        You don't own any boards yet.
+		        You don't own any cards yet.
      <%end%>
  </div>	 
