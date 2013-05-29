@@ -7,17 +7,21 @@ MtmKanban::Application.routes.draw do
   devise_for :users
   resources :users
   resources :tasks
-  resources :boards do
+  resources :cards do
     resources :states do
       resources :cards
     end
-    resources :memberships
+    resources :memberships 
     member do
       get :settings 
       get :members ,:action => "memberships"
+      get :newsubcard
+      post :addsubcard
+      post :addmember
+      post :change_role
     end
   end
-  resources :boards
+  
   resources :cards, :users do
     post :sort, :on => :collection
   end

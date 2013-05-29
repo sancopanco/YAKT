@@ -11,48 +11,56 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516112405) do
+ActiveRecord::Schema.define(:version => 20130529084015) do
 
-  create_table "board_states", :force => true do |t|
-    t.integer  "board_id"
-    t.integer  "state_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "boards", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "account_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "owner_id"
+  create_table "card_details", :force => true do |t|
+    t.integer  "position"
+    t.string   "priority"
+    t.string   "cardtype"
+    t.integer  "requested_by"
+    t.integer  "assigned_to"
+    t.datetime "due_date"
+    t.datetime "completion_date"
+    t.integer  "card_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "cards", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.integer  "cardtype_id"
     t.integer  "state_id"
-    t.integer  "position"
-    t.integer  "priority_id"
-    t.integer  "requested_by"
-    t.integer  "assigned_to"
-    t.datetime "due_date"
-    t.datetime "completion_date"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "board_id"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "style_id"
   end
 
-  create_table "cardtypes", :force => true do |t|
-    t.string   "name"
+  create_table "cards_users", :id => false, :force => true do |t|
+    t.integer "card_id"
+    t.integer "user_id"
+  end
+
+  create_table "date_types", :force => true do |t|
+    t.datetime "date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "priorities", :force => true do |t|
+  create_table "elements", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "element_object_id"
+    t.string   "element_object_type"
+    t.integer  "style_id"
+    t.integer  "card_id"
+  end
+
+  create_table "int_types", :force => true do |t|
+    t.integer  "integer"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -85,20 +93,17 @@ ActiveRecord::Schema.define(:version => 20130516112405) do
     t.string   "category"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "board_id"
+    t.integer  "card_id"
   end
 
-  create_table "tasks", :force => true do |t|
-    t.string   "name"
-    t.integer  "card_id"
-    t.integer  "done"
+  create_table "str_types", :force => true do |t|
+    t.string   "string"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "user_cards", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "card_id"
+  create_table "styles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

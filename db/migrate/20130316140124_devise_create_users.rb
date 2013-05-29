@@ -1,57 +1,32 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
-    create_table "board_states", :force => true do |t|
-      t.integer  "board_id"
-      t.integer  "state_id"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
-    end
-
-    create_table "boards", :force => true do |t|
-      t.string   "name"
-      t.string   "description"
-      t.integer  "account_id"
-      t.datetime "created_at",  :null => false
-      t.datetime "updated_at",  :null => false
-      t.integer  "owner_id"
+    create_table "card_details", :force => true do |t|
+      t.integer  "position"
+      t.string   "priority"
+      t.string   "cardtype"
+      t.integer  "requested_by"
+      t.integer  "assigned_to"
+      t.datetime "due_date"
+      t.datetime "completion_date"
+      t.integer  "card_id"
+      t.datetime "created_at",      :null => false
+      t.datetime "updated_at",      :null => false
     end
 
     create_table "cards", :force => true do |t|
       t.string   "name"
       t.string   "description"
-      t.integer  "cardtype_id"
       t.integer  "state_id"
-      t.integer  "position"
-      t.integer  "priority_id"
-      t.integer  "requested_by"
-      t.integer  "assigned_to"
-      t.datetime "due_date"
-      t.datetime "completion_date"
+      t.integer  "parent_id"
+      t.integer  "lft"
+      t.integer  "rgt"
       t.datetime "created_at",      :null => false
       t.datetime "updated_at",      :null => false
-      t.integer  "board_id"
     end
-
-    create_table "cardtypes", :force => true do |t|
-      t.string   "name"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
+    create_table "cards_users", :id => false, :force => true do |t|
+      t.integer "card_id"
+      t.integer "user_id"
     end
-
-    create_table "memberships", :force => true do |t|
-      t.integer  "board_id"
-      t.integer  "role_id"
-      t.integer  "user_id"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
-    end
-
-    create_table "priorities", :force => true do |t|
-      t.string   "name"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
-    end
-
     create_table "roles", :force => true do |t|
       t.string   "name"
       t.integer  "resource_id"
@@ -80,24 +55,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   "category"
       t.datetime "created_at", :null => false
       t.datetime "updated_at", :null => false
-      t.integer  "board_id"
-    end
-
-    create_table "tasks", :force => true do |t|
-      t.string   "name"
       t.integer  "card_id"
-      t.integer  "done"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
     end
-
-    create_table "user_cards", :force => true do |t|
-      t.integer  "user_id"
-      t.integer  "card_id"
-      t.datetime "created_at", :null => false
-      t.datetime "updated_at", :null => false
-    end
-
     create_table "users", :force => true do |t|
       t.string   "email",                  :default => "", :null => false
       t.string   "encrypted_password",     :default => "", :null => false
@@ -126,5 +85,26 @@ class DeviseCreateUsers < ActiveRecord::Migration
     end
 
     add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+    create_table "versions", :force => true do |t|
+      t.integer  "versioned_id"
+      t.string   "versioned_type"
+      t.integer  "user_id"
+      t.string   "user_type"
+      t.string   "user_name"
+      t.text     "modifications"
+      t.integer  "number"
+      t.integer  "reverted_from"
+      t.string   "tag"
+      t.datetime "created_at",     :null => false
+      t.datetime "updated_at",     :null => false
+    end
+
+    add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+    add_index "versions", ["number"], :name => "index_versions_on_number"
+    add_index "versions", ["tag"], :name => "index_versions_on_tag"
+    add_index "versions", ["user_id", "user_type"], :name => "index_versions_on_user_id_and_user_type"
+    add_index "versions", ["user_name"], :name => "index_versions_on_user_name"
+    add_index "versions", ["versioned_id", "versioned_type"], :name => "index_versions_on_versioned_id_and_versioned_type"
   end
 end
