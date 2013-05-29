@@ -16,5 +16,6 @@
 //= require bootstrap
 //= require jquery.reverseorder
 //= require bootstrap-modalmanager
-//= require_tree .
+//= require membership
+
 
