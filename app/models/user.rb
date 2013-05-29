@@ -31,36 +31,17 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:role,:avatar
   has_attached_file :avatar, :styles => { :medium => "120x120>", :thumb => "48x48>" }
+  has_and_belongs_to_many :cards
   
- 
-  has_many :user_cards
-  has_many :cards,  :through => :user_cards
-  has_many :boards,:foreign_key => 'owner_id'
-  after_create :set_initial_role
-  def set_initial_role
-    self.add_role :viewer
-  end
-  def self.inactive_users(board)
+  def self.inactive_users
     all.select{|u| u.cards.size == 0}
-  end
-  
-  def role=(role)
-    self.role = role
-  end
-  def role
-    Role.first
-  end
-  def self.involved_user_of_board(board)
-    User.with_all_roles({:name=>:owner,:resource => board}) <<
-    User.with_all_roles({:name=>:viewer,:resource => board}) << 
-    User.with_all_roles({:name=>:member,:resource => board})
   end
   
   def self.not_members_of_board
     all.select{|u| !u.has_role? :member,board}
   end
   
-  def get_boards_by_role(role) 
+  def get_cards_by_role(role) 
     Board.with_role role, self
   end
   

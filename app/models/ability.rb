@@ -6,16 +6,16 @@ class Ability
         can :manage, :all
     end    
     
-    can [:update,:destroy,:edit], Board do |board|
-      user.has_role? :owner,board
+    can [:update,:destroy,:edit], Card do |card|
+      user.has_role? :owner,card
     end
     
-    can :read, Board do |board|
-      user.has_role? :viewer,board
+    can :read, Card do |card|
+      user.has_role? :viewer,card
     end
     
-    can [:update,:destroy], Task do |task|
-      user.has_role? :owner,task
+    can [:update,:destroy], Card do |card|
+      user.has_role? :owner,card
     end
     
     

@@ -23,35 +23,69 @@ THE SOFTWARE
 
 
 class Card < ActiveRecord::Base
-  attr_accessible :cardtype_id, :completion_date, :description, :due_date, :name, 
-                  :position, :priority_id, :requested_by, :state_id,:owner,:updated_by
-                  
+  CARD_TYPES = ['feature', 'bug', 'release']
+  acts_as_nested_set
+  resourcify
   versioned                
-	belongs_to :priority
-	belongs_to :state
-	belongs_to :cardtype
-  has_many :tasks, :dependent => :destroy
-  has_many :user_cards
-  has_many :users,:through => :user_cards
-  
+  attr_accessible :description,:state_id,:updated_by,:name, :parent_id,:style,:state
+  attr_protected :lft,:rgt                
+  belongs_to :state
+  belongs_to :style
+	has_many :states 
+  has_one :card_detail
   has_many :attached_images
   has_many :attached_docs
-  before_create :put_default_values
-  def put_default_values
-    #self.cardtype ||= CardType.new(:name => "Empty Card")
-    self.position ||= 0
-  end
+  has_and_belongs_to_many :users
+  has_many :elements
+  has_many :element_objects, :through => :elements
   
+  accepts_nested_attributes_for :card_detail
+  after_create :set_default_details,:set_default_states,:add_elements
+  def add_elements
+    if style
+      style.elements.each do |e|
+        new_element = e.dup
+        self.elements << new_element 
+        new_element.update_attribute(:style_id,nil)
+      end
+    end
+  end
+  def set_default_details
+    position ||= 0
+    self.card_detail = CardDetail.create(:position => position)
+  end
+  def set_default_states
+    #FIXME:
+    if style.name == "BoardCard"
+      card.states << State.create(:name => 'TODO', :capacity=> 5, :position => 2,:category =>"Custom")
+      card.states << State.create(:name => 'BackLog', :capacity => 5, :position => 1,:category =>"BackLog")
+      card.states << State.create(:name => 'Archive', :capacity=> 5, :position => 3,:category =>"Archive")
+    end
+  end
+  def has_any_card_task?
+    return false
+  end
   def requested_user
     User.where("id=?",self.requested_by).first
   end
-  
-  def owner
-    @owner
+  def set_default_states 
+    backlog ||= State.create(:name => 'Backlog')
+    todo ||= State.create(:name=>'ToDo')
+    archive ||= State.create(:name=>'Archive')
+    self.states = [backlog, todo, archive]
   end
-  def owner=(owner)
-    @owner = owner
+  
+  #all available boards for this user
+  def self.all_available(user)
+    where("owner_id = ?", user.id)
   end
  
+  def members
+    {
+      :owner  => User.with_all_roles({:name=>:owner,:resource => self}),
+      :viewer => User.with_all_roles({:name=>:viewer,:resource => self}),
+      :member => User.with_all_roles({:name=>:member,:resource => self}) 
+    }
+  end
   #acts_as_taggable_on :labels
 end

@@ -21,12 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 =end
 class State < ActiveRecord::Base
-  #binding.pry
-  attr_accessible :capacity, :category, :name, :position, :board_id
+  attr_accessible :capacity, :category, :name, :position, :card
   versioned
   before_create :put_default_values
   has_many :cards
-  belongs_to :board
+  belongs_to :card
   def put_default_values
     self.capacity ||= 5
     self.position ||= 0
