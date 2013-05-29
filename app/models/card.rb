@@ -27,20 +27,19 @@ class Card < ActiveRecord::Base
   acts_as_nested_set
   resourcify
   versioned                
-  attr_accessible :description,:state_id,:updated_by,:name, :parent_id,:style,:state
+  attr_accessible :description,:state_id,:updated_by,:name,
+     :parent_id,:style,:state,:position,:priority,:cardtype
   attr_protected :lft,:rgt                
   belongs_to :state
   belongs_to :style
 	has_many :states 
-  has_one :card_detail
   has_many :attached_images
   has_many :attached_docs
   has_and_belongs_to_many :users
   has_many :elements
   has_many :element_objects, :through => :elements
   
-  accepts_nested_attributes_for :card_detail
-  after_create :set_default_details,:set_default_states,:add_elements
+  after_create :set_default_fields,:set_default_states,:add_elements
   def add_elements
     if style
       style.elements.each do |e|
@@ -50,29 +49,24 @@ class Card < ActiveRecord::Base
       end
     end
   end
-  def set_default_details
+  def set_default_fields
     position ||= 0
-    self.card_detail = CardDetail.create(:position => position)
   end
   def set_default_states
     #FIXME:
     if style.name == "BoardCard"
-      card.states << State.create(:name => 'TODO', :capacity=> 5, :position => 2,:category =>"Custom")
-      card.states << State.create(:name => 'BackLog', :capacity => 5, :position => 1,:category =>"BackLog")
-      card.states << State.create(:name => 'Archive', :capacity=> 5, :position => 3,:category =>"Archive")
+      backlog ||= State.create(:name => 'TODO', :capacity=> 5, :position => 2,:category =>"Custom")
+      todo    ||= State.create(:name => 'BackLog', :capacity => 5, :position => 1,:category =>"BackLog")
+      archive ||= State.create(:name => 'Archive', :capacity=> 5, :position => 3,:category =>"Archive")
+      self.states = [backlog,todo,archive]
     end
   end
   def has_any_card_task?
+    #FIXME  
     return false
   end
   def requested_user
     User.where("id=?",self.requested_by).first
-  end
-  def set_default_states 
-    backlog ||= State.create(:name => 'Backlog')
-    todo ||= State.create(:name=>'ToDo')
-    archive ||= State.create(:name=>'Archive')
-    self.states = [backlog, todo, archive]
   end
   
   #all available boards for this user
@@ -87,5 +81,5 @@ class Card < ActiveRecord::Base
       :member => User.with_all_roles({:name=>:member,:resource => self}) 
     }
   end
-  #acts_as_taggable_on :labels
+  
 end

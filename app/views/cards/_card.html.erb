@@ -25,6 +25,7 @@ THE SOFTWARE
 <div class="card color-green" id="<%= "card_#{card.id}" %>" data-cardid="<%=card.id%>">
   <div class="card-head" style="cursor:move;">
 	  <a style="display: inline;" href="#" class="collapse">COLLAPSE</a>
+	  <p><%= link_to card.name, card %></p>
 	  <a href="#" class="remove">CLOSE</a>
 	  <a style="display: inline;" href="#" class="edit">EDIT</a>
   </div>
@@ -50,9 +51,8 @@ THE SOFTWARE
   </div>
   <div class="card-content">
 	  <%card.elements.each do |element|%>
-	     <!-- <%=%># render :partial => "cards/card_templates/#{element.element_object_type.to_s.downcase}",
-		 #:locals => {:element => element}   %> -->
-	  	<p><%= link_to card.name, card %></p>
+	      <%= render :partial => "cards/element_templates/#{element.element_object_type.to_s.downcase}",
+		      :locals => {:element => element}   %>
 	  <%end%>
 	  
   </div>

@@ -1,5 +1,6 @@
 class Element < ActiveRecord::Base
-   ELEMENT_TYPES = ["Image", "Html","Label","Video", "IntType", "StrType"]
+   ELEMENT_TYPES = ["Image", "Html","Label","Video",
+                      "IntType", "StrType","DateType"]
    attr_accessible :name,:element_object_type
    belongs_to :element_object,:polymorphic=>true, :autosave=>true
    after_create :setup_element_object

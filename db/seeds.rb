@@ -21,16 +21,17 @@ s1.elements << e5
 
 
 #UserRoles
-owner_role  =  Role.find_or_create_by_name(:name =>  'owner')
+owner_role  =  Role.find_or_create_by_name(:name => 'owner')
 member_role =  Role.find_or_create_by_name(:name => 'member')
 viewer_role =  Role.find_or_create_by_name(:name => 'viewer')
-admin_role  =  Role.find_or_create_by_name(:name  => 'admin')
+admin_role  =  Role.find_or_create_by_name(:name => 'admin')
 
 
 u_owner  = User.create(:email=>"owner@example.com",:password => "123")
 u_viewer = User.create(:email=>"viewer@example.com",:password => "123")
 u_member = User.create(:email=>"member@example.com",:password => "123")
 u_admin  = User.create(:email=>"admin@example.com",:password => "123")
+
 board_card = Card.find_or_create_by_name(:name=>"test_board_card",:style=>s3)
 task_card = Card.find_or_create_by_name(:name=>"test_task_card",:style=>s1,:state=>board_card.states.first)
 

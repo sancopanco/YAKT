@@ -78,7 +78,6 @@ class CardsController < ApplicationController
       if @card.save
        @card.users << current_user  
        current_user.add_role :owner, @card
-       #@card.requested_by = current_user.id
        render 'new_card' and return if !!request.xhr?
        respond_to do |format|
          format.html { redirect_to '/dashboard', :notice => 'Card was successfully created.' }
@@ -136,7 +135,6 @@ class CardsController < ApplicationController
     new_card.state = @card.states.find_by_name("BackLog")
     new_card.save
     @card.children << new_card
-    #@card.state.cards << @card
     redirect_to @card
   end
   
@@ -183,7 +181,7 @@ class CardsController < ApplicationController
          
       Card.find(card_ids).each_with_index do |card, i|
         card.update_attributes(:state_id => state_id) 
-        card.card_detail.update_attributes(:position => i,:updated_by => current_user)
+        card.update_attributes(:position => i,:updated_by => current_user)
       end
     end
 
