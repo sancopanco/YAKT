@@ -20,6 +20,41 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 */
+table.states {
+    border-spacing: 5px 0;
+    height: 100%;
+    width: 100%;
+}
+.state-header {
+    background: grey;
+    color: #EEEEEE;
+    padding: 0.2em 0.2em 0.2em 1em;
+    text-align: left;
+    text-transform: capitalize;
+}
+table.states td {
+    background-color: #CCCCCC;
+    border-radius: 5px 5px 0 0;
+    vertical-align: top;
+}
+
+table.states div.state-content{
+  overflow: auto;
+  padding-bottom: 80px;
+	
+}
+.state-header a.toggle-state {
+    color: #EEEEEE;
+    cursor: pointer;
+    float: right;
+    padding: 0 5px 1px;
+    text-decoration: none;
+}
+
+
+
+
+
 
 ul.state {
   list-style-type: none;
