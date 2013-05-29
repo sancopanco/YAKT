@@ -17,7 +17,7 @@ group :development,:production do
   gem 'thin'
   gem 'mysql2'
   gem 'paperclip'
-  #gem 'acts_as_versionable'
+  gem 'awesome_nested_set'
   gem "rolify", ">= 3.2.0"
   gem "simple_form", ">= 2.0.4"
   gem 'jquery-rails'
